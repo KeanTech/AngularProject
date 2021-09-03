@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ZBCRoomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="RoomTemperatures">
+          <Key>
+            <PropertyRef Name="FK_Room_Id" />
+            <PropertyRef Name="FK_Temperature_Id" />
+          </Key>
+          <Property Name="FK_Room_Id" Type="int" Nullable="false" />
+          <Property Name="FK_Temperature_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Temperature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Celsius" Type="float" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__RoomTempe__FK_Ro__59C55456">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomTemperatures">
+              <PropertyRef Name="FK_Room_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoomTempe__FK_Te__5AB9788F">
+          <End Role="Temperature" Type="Self.Temperature" Multiplicity="1" />
+          <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temperature">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomTemperatures">
+              <PropertyRef Name="FK_Temperature_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZBCRoomModelStoreContainer">
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomTemperatures" EntityType="Self.RoomTemperatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temperature" EntityType="Self.Temperature" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__RoomTempe__FK_Ro__59C55456" Association="Self.FK__RoomTempe__FK_Ro__59C55456">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoomTempe__FK_Te__5AB9788F" Association="Self.FK__RoomTempe__FK_Te__5AB9788F">
+            <End Role="Temperature" EntitySet="Temperature" />
+            <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZBCRoomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoomTemperatures" Relationship="Self.FK__RoomTempe__FK_Ro__59C55456" FromRole="Room" ToRole="RoomTemperatures" />
+        </EntityType>
+        <EntityType Name="RoomTemperatures">
+          <Key>
+            <PropertyRef Name="FK_Room_Id" />
+            <PropertyRef Name="FK_Temperature_Id" />
+          </Key>
+          <Property Name="FK_Room_Id" Type="Int32" Nullable="false" />
+          <Property Name="FK_Temperature_Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" />
+          <NavigationProperty Name="Room" Relationship="Self.FK__RoomTempe__FK_Ro__59C55456" FromRole="RoomTemperatures" ToRole="Room" />
+          <NavigationProperty Name="Temperature" Relationship="Self.FK__RoomTempe__FK_Te__5AB9788F" FromRole="RoomTemperatures" ToRole="Temperature" />
+        </EntityType>
+        <EntityType Name="Temperature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Celsius" Type="Double" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RoomTemperatures" Relationship="Self.FK__RoomTempe__FK_Te__5AB9788F" FromRole="Temperature" ToRole="RoomTemperatures" />
+        </EntityType>
+        <Association Name="FK__RoomTempe__FK_Ro__59C55456">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomTemperatures">
+              <PropertyRef Name="FK_Room_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoomTempe__FK_Te__5AB9788F">
+          <End Role="Temperature" Type="Self.Temperature" Multiplicity="1" />
+          <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temperature">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomTemperatures">
+              <PropertyRef Name="FK_Temperature_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZBCRoomInfoDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Room" EntityType="Self.Room" />
+          <EntitySet Name="RoomTemperatures" EntityType="Self.RoomTemperatures" />
+          <EntitySet Name="Temperature" EntityType="Self.Temperature" />
+          <AssociationSet Name="FK__RoomTempe__FK_Ro__59C55456" Association="Self.FK__RoomTempe__FK_Ro__59C55456">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoomTempe__FK_Te__5AB9788F" Association="Self.FK__RoomTempe__FK_Te__5AB9788F">
+            <End Role="Temperature" EntitySet="Temperature" />
+            <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZBCRoomModelStoreContainer" CdmEntityContainer="ZBCRoomInfoDb">
+          <EntitySetMapping Name="Room">
+            <EntityTypeMapping TypeName="ZBCRoomModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomTemperatures">
+            <EntityTypeMapping TypeName="ZBCRoomModel.RoomTemperatures">
+              <MappingFragment StoreEntitySet="RoomTemperatures">
+                <ScalarProperty Name="FK_Room_Id" ColumnName="FK_Room_Id" />
+                <ScalarProperty Name="FK_Temperature_Id" ColumnName="FK_Temperature_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temperature">
+            <EntityTypeMapping TypeName="ZBCRoomModel.Temperature">
+              <MappingFragment StoreEntitySet="Temperature">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Celsius" ColumnName="Celsius" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
