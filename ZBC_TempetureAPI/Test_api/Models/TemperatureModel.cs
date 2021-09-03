@@ -5,10 +5,10 @@ using System.Web;
 
 namespace Test_api.Models
 {
-    public class Temperature
+    public class TemperatureModel
     {
+        public int Id { get; set; }
+        public double Celsius { get; set; }
         public DateTime TimeStamp { get; set; }
-        public float Celsius { get; set; }
-        public int RoomId { get; set; }
     }
 }
