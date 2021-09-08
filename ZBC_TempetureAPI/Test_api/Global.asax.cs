@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
+using ZBCTempInfoApi.App_Start;
 
-namespace Test_api
+namespace ZBCTempInfoApi
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

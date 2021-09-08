@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Test_api.Models;
+using ZBCTempInfoApi.Models;
 
-namespace Test_api.DataAccess
+namespace ZBCTempInfoApi.DataAccess
 {
     public static class DbCommunicator
     {
@@ -41,8 +40,6 @@ namespace Test_api.DataAccess
             infoDb.SaveChanges();
         }
 
-
-
         //---------------------------------------------------  Temperature Methods
 
         public static TemperatureModel ConvertToTemperatureModel(Temperature temperature)
@@ -59,9 +56,6 @@ namespace Test_api.DataAccess
             return temperatureModel;
         }
 
-       
-
-
         public static List<TemperatureModel> GetTemperatures()
         {
             List<TemperatureModel> temperatureModels = new List<TemperatureModel>();
@@ -74,6 +68,7 @@ namespace Test_api.DataAccess
                 if(item != null)
                 temperatureModels.Add(ConvertToTemperatureModel(item));
             }
+
             return temperatureModels;
         }
 
@@ -93,7 +88,5 @@ namespace Test_api.DataAccess
             infoDb.Temperature.Remove(temperature);
             infoDb.SaveChanges();
         }
-
-
     }
 }

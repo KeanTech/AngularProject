@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZBC_TempetureAPI", "ZBC_Tem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCommunication", "DataCommunication\DataCommunication.csproj", "{4AB302AC-6EAD-45E8-B331-70F3AF9A01D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_api", "Test_api\Test_api.csproj", "{E2FB2580-1CA6-44B1-96C3-7A46A7548AEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZBCTempInfoApi", "Test_api\ZBCTempInfoApi.csproj", "{E2FB2580-1CA6-44B1-96C3-7A46A7548AEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

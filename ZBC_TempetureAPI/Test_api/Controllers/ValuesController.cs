@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Globalization;
-using System.Web.Http;
-using System.Text.Json;
-using Test_api.DataAccess;
-using System.Linq;
 using System.Collections.Generic;
-using Test_api.Models;
-using System.Web;
+using System.Text.Json;
+using System.Web.Http;
+using ZBCTempInfoApi.DataAccess;
+using ZBCTempInfoApi.Models;
 
-namespace Test_api.Controllers
+namespace ZBCTempInfoApi.Controllers
 {
     public class ValuesController : ApiController
     {
@@ -47,10 +44,6 @@ namespace Test_api.Controllers
             }
             
             if(id == 0)
-            {
-                return "Error";
-            }
-            if(id == 10)
             {
                return GetTemps();
             }

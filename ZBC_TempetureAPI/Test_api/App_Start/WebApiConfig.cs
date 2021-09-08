@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace Test_api
+namespace ZBCTempInfoApi.App_Start
 {
     public static class WebApiConfig
     {

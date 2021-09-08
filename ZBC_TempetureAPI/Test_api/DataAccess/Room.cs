@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Test_api.DataAccess
+namespace ZBCTempInfoApi.DataAccess
 {
     using System;
     using System.Collections.Generic;
