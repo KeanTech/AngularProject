@@ -47,6 +47,9 @@ namespace Test_api.DataAccess
 
         public static TemperatureModel ConvertToTemperatureModel(Temperature temperature)
         {
+            if (temperature == null)
+                temperature = new Temperature();
+
             TemperatureModel temperatureModel = new TemperatureModel()
             {
                 Id = temperature.Id,

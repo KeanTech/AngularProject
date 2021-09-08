@@ -10,7 +10,6 @@ using System.Web;
 
 namespace Test_api.Controllers
 {
-
     public class ValuesController : ApiController
     {
         // GET api/values
@@ -36,9 +35,17 @@ namespace Test_api.Controllers
             return "Error";
         }
 
-        public string GetTemp(int id)
-        
+        public string Get(int id)
         {
+            var url = Request.RequestUri.AbsoluteUri.Split('?').Length;
+            if (url > 2)
+            {
+                var temp = Request.RequestUri.AbsoluteUri.Split('?')[2].Split('=')[1].Split('&')[0];
+                var loc = Request.RequestUri.AbsoluteUri.Split('?')[3].Split('=')[1];
+
+                return Sensor(temp, loc);
+            }
+            
             if(id == 0)
             {
                 return "Error";
@@ -48,7 +55,7 @@ namespace Test_api.Controllers
                return GetTemps();
             }
                     
-            return JsonSerializer.Serialize<TemperatureModel>(DbCommunicator.GetTemperature(id));
+            return JsonSerializer.Serialize<TemperatureModel>(DbCommunicator.GetTemperature(id) ?? new TemperatureModel());
         }
 
         public string GetTemps()
