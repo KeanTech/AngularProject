@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZBC_TempetureAPI", "ZBC_TempetureAPI\ZBC_TempetureAPI.csproj", "{E18FD2BC-9BCA-4937-BAF5-B1CF80EC1CA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZBC_TempetureAPI", "ZBC_TempetureAPI\ZBC_TempetureAPI.csproj", "{E18FD2BC-9BCA-4937-BAF5-B1CF80EC1CA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCommunication", "DataCommunication\DataCommunication.csproj", "{4AB302AC-6EAD-45E8-B331-70F3AF9A01D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZBCTempInfoApi", "Test_api\ZBCTempInfoApi.csproj", "{E2FB2580-1CA6-44B1-96C3-7A46A7548AEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E18FD2BC-9BCA-4937-BAF5-B1CF80EC1CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E18FD2BC-9BCA-4937-BAF5-B1CF80EC1CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E18FD2BC-9BCA-4937-BAF5-B1CF80EC1CA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AB302AC-6EAD-45E8-B331-70F3AF9A01D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB302AC-6EAD-45E8-B331-70F3AF9A01D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AB302AC-6EAD-45E8-B331-70F3AF9A01D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB302AC-6EAD-45E8-B331-70F3AF9A01D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2FB2580-1CA6-44B1-96C3-7A46A7548AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2FB2580-1CA6-44B1-96C3-7A46A7548AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2FB2580-1CA6-44B1-96C3-7A46A7548AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2FB2580-1CA6-44B1-96C3-7A46A7548AEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

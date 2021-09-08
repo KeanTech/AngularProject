@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ZBC_TempetureAPI.Controllers
 {
@@ -11,9 +7,9 @@ namespace ZBC_TempetureAPI.Controllers
     public class TemperatureController : Controller
     {
         [HttpPost]
-        public string Post(string input)
+        public void Post(string input)
         {
-            return "";   
+            
         }
 
 
