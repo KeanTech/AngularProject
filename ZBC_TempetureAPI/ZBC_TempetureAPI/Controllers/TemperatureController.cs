@@ -11,9 +11,9 @@ namespace ZBC_TempetureAPI.Controllers
     public class TemperatureController : Controller
     {
         [HttpPost]
-        public void Post(string input)
+        public string Post(string input)
         {
-            
+            return "";   
         }
 
 
