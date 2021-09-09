@@ -43,7 +43,7 @@ namespace ZbcTemperatureApi.DataAccess
 
         //---------------------------------------------------  Temperature Methods
 
-        public static TemperatureModel ConvertToTemperatureModel(Temperature temperature)
+        public static TemperatureModel ConvertToTemperatureModel(Temperature temperature, string roomName)
         {
             if (temperature == null)
                 temperature = new Temperature();
@@ -52,9 +52,15 @@ namespace ZbcTemperatureApi.DataAccess
             {
                 Id = temperature.Id,
                 Celsius = temperature.Celsius,
-                TimeStamp = temperature.TimeStamp ?? new DateTime()
+                TimeStamp = temperature.TimeStamp ?? new DateTime(),
+                Room = roomName
             };
             return temperatureModel;
+        }
+
+        public static List<Temperature> GetAllTemperatures()
+        {
+            return infoDb.Temperature.ToList();
         }
 
         public static List<TemperatureModel> GetTemperatures()
@@ -66,8 +72,17 @@ namespace ZbcTemperatureApi.DataAccess
 
             foreach (var item in temperatures)
             {
-                if(item != null)
-                temperatureModels.Add(ConvertToTemperatureModel(item));
+                if (item != null)
+                {
+                    foreach (var roomTemp in roomTemps)
+                    {
+                        if (roomTemp.FK_Temperature_Id == item.Id)
+                        {
+                            Room room = rooms.Where(x => x.Id == roomTemp.Id).FirstOrDefault();
+                            temperatureModels.Add(ConvertToTemperatureModel(item, room.Name));
+                        }
+                    }
+                }
             }
 
             return temperatureModels;
@@ -75,7 +90,9 @@ namespace ZbcTemperatureApi.DataAccess
 
         public static TemperatureModel GetTemperature(int id)
         {
-            return ConvertToTemperatureModel(infoDb.Temperature.Where(x => x.Id == id).FirstOrDefault());
+            var roomTemps = infoDb.RoomTemperatures.Where(x => x.Id == id).FirstOrDefault();
+
+            return ConvertToTemperatureModel(roomTemps.Temperature, roomTemps.Room.Name);
         }
 
         public static void Add(Temperature temperature)
@@ -89,5 +106,19 @@ namespace ZbcTemperatureApi.DataAccess
             infoDb.Temperature.Remove(temperature);
             infoDb.SaveChanges();
         }
+
+        //----------------------------------------------------- RoomTemperatures
+
+        public static void Add(RoomTemperatures roomTemperature)
+        {
+            infoDb.RoomTemperatures.Add(roomTemperature);
+            infoDb.SaveChanges();
+        }
+
+        public static List<RoomTemperatures> GetRoomTemperatures()
+        {
+            return infoDb.RoomTemperatures.ToList();
+        }
+
     }
 }
