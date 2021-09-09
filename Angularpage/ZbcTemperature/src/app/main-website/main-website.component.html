@@ -2,14 +2,26 @@
 <header>
 
 </header>
-<body>
-  <div style=" background-color: aqua;">
-    <p></p>
-    <mat-card>
-      <mat-card-header>Hello</mat-card-header>
-    </mat-card>
-  </div>
-</body>
 
+<body style="background-color: cornflowerblue;">
+  <!--
+
+    <mat-card style="margin-left: 80vh; margin-right: 80vh;">
+      <table mat-table [dataSource]="displayData">
+
+        <ng-container matColumnDef="Id">
+          <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.Id}}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </table>
+    </mat-card>
+  -->
+  <button (click)="data.getData()">Fetch Data</button>
+
+
+</body>
 
 </html>

@@ -3,23 +3,16 @@ import { RoomsandtempsService } from '../roomsandtemps.service';
 import { Observable } from 'rxjs';
 import { Data } from '@angular/router';
 import { AppComponent } from '../app.component';
-import { NgxJsonViewModule } from 'ng-json-view';
+import { Dataclass } from '../Classes/roomandtemp-data';
 
-export interface Room {
-  Name: string;
+
+
+export class Room {
+  Id: number;
+  Room: string;
   Temperature: number;
+  Timestamp: string;
 }
-/*
-const RoomData: Room[] = [
-  {Name: 'H.01', Temperature: 23.1},
-  {Name: 'H.02', Temperature: 24.1},
-];
-*/
-
-
-var appComp:AppComponent;
-let roomData: string[];
-
 
 @Component({
   selector: 'app-main-website',
@@ -27,12 +20,13 @@ let roomData: string[];
   styleUrls: ['./main-website.component.css']
 })
 
-
 export class MainWebsiteComponent implements OnInit {
 
-  roomData = appComp.GetData();
-  data = roomData;
-  displayedColumns = ['Name', 'Temperature'];
+  displayedColumns = ['Id'];
+
+
+  constructor(public data:RoomsandtempsService){
+  }
 
   ngOnInit(): void {
   }
