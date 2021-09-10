@@ -13,10 +13,10 @@ namespace ZbcTemperatureApi.DataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ZBCRoomInfoDbEntities : DbContext
+    public partial class ZBCRoomInfoDbEntities1 : DbContext
     {
-        public ZBCRoomInfoDbEntities()
-            : base("name=ZBCRoomInfoDbEntities")
+        public ZBCRoomInfoDbEntities1()
+            : base("name=ZBCRoomInfoDbEntities1")
         {
         }
     

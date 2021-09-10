@@ -10,7 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="25" />
+          <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="RoomTemperatures">
           <Key>
@@ -19,7 +19,7 @@
           </Key>
           <Property Name="FK_Room_Id" Type="int" Nullable="false" />
           <Property Name="FK_Temperature_Id" Type="int" Nullable="false" />
-          <Property Name="Id" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Temperature">
           <Key>
@@ -27,9 +27,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Celsius" Type="float" Nullable="false" />
-          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__RoomTempe__FK_Ro__59C55456">
+        <Association Name="FK__RoomTempe__FK_Ro__276EDEB3">
           <End Role="Room" Type="Self.Room" Multiplicity="1" />
           <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
           <ReferentialConstraint>
@@ -41,7 +41,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoomTempe__FK_Te__5AB9788F">
+        <Association Name="FK__RoomTempe__FK_Te__286302EC">
           <End Role="Temperature" Type="Self.Temperature" Multiplicity="1" />
           <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
           <ReferentialConstraint>
@@ -57,11 +57,11 @@
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomTemperatures" EntityType="Self.RoomTemperatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Temperature" EntityType="Self.Temperature" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__RoomTempe__FK_Ro__59C55456" Association="Self.FK__RoomTempe__FK_Ro__59C55456">
+          <AssociationSet Name="FK__RoomTempe__FK_Ro__276EDEB3" Association="Self.FK__RoomTempe__FK_Ro__276EDEB3">
             <End Role="Room" EntitySet="Room" />
             <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoomTempe__FK_Te__5AB9788F" Association="Self.FK__RoomTempe__FK_Te__5AB9788F">
+          <AssociationSet Name="FK__RoomTempe__FK_Te__286302EC" Association="Self.FK__RoomTempe__FK_Te__286302EC">
             <End Role="Temperature" EntitySet="Temperature" />
             <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
           </AssociationSet>
@@ -76,8 +76,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RoomTemperatures" Relationship="Self.FK__RoomTempe__FK_Ro__59C55456" FromRole="Room" ToRole="RoomTemperatures" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RoomTemperatures" Relationship="Self.FK__RoomTempe__FK_Ro__276EDEB3" FromRole="Room" ToRole="RoomTemperatures" />
         </EntityType>
         <EntityType Name="RoomTemperatures">
           <Key>
@@ -86,9 +86,9 @@
           </Key>
           <Property Name="FK_Room_Id" Type="Int32" Nullable="false" />
           <Property Name="FK_Temperature_Id" Type="Int32" Nullable="false" />
-          <Property Name="Id" Type="Int32" />
-          <NavigationProperty Name="Room" Relationship="Self.FK__RoomTempe__FK_Ro__59C55456" FromRole="RoomTemperatures" ToRole="Room" />
-          <NavigationProperty Name="Temperature" Relationship="Self.FK__RoomTempe__FK_Te__5AB9788F" FromRole="RoomTemperatures" ToRole="Temperature" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Room" Relationship="Self.FK__RoomTempe__FK_Ro__276EDEB3" FromRole="RoomTemperatures" ToRole="Room" />
+          <NavigationProperty Name="Temperature" Relationship="Self.FK__RoomTempe__FK_Te__286302EC" FromRole="RoomTemperatures" ToRole="Temperature" />
         </EntityType>
         <EntityType Name="Temperature">
           <Key>
@@ -96,10 +96,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Celsius" Type="Double" Nullable="false" />
-          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="RoomTemperatures" Relationship="Self.FK__RoomTempe__FK_Te__5AB9788F" FromRole="Temperature" ToRole="RoomTemperatures" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RoomTemperatures" Relationship="Self.FK__RoomTempe__FK_Te__286302EC" FromRole="Temperature" ToRole="RoomTemperatures" />
         </EntityType>
-        <Association Name="FK__RoomTempe__FK_Ro__59C55456">
+        <Association Name="FK__RoomTempe__FK_Ro__276EDEB3">
           <End Role="Room" Type="Self.Room" Multiplicity="1" />
           <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
           <ReferentialConstraint>
@@ -111,7 +111,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoomTempe__FK_Te__5AB9788F">
+        <Association Name="FK__RoomTempe__FK_Te__286302EC">
           <End Role="Temperature" Type="Self.Temperature" Multiplicity="1" />
           <End Role="RoomTemperatures" Type="Self.RoomTemperatures" Multiplicity="*" />
           <ReferentialConstraint>
@@ -123,15 +123,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ZBCRoomInfoDbEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ZBCRoomInfoDbEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Room" EntityType="Self.Room" />
           <EntitySet Name="RoomTemperatures" EntityType="Self.RoomTemperatures" />
           <EntitySet Name="Temperature" EntityType="Self.Temperature" />
-          <AssociationSet Name="FK__RoomTempe__FK_Ro__59C55456" Association="Self.FK__RoomTempe__FK_Ro__59C55456">
+          <AssociationSet Name="FK__RoomTempe__FK_Ro__276EDEB3" Association="Self.FK__RoomTempe__FK_Ro__276EDEB3">
             <End Role="Room" EntitySet="Room" />
             <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoomTempe__FK_Te__5AB9788F" Association="Self.FK__RoomTempe__FK_Te__5AB9788F">
+          <AssociationSet Name="FK__RoomTempe__FK_Te__286302EC" Association="Self.FK__RoomTempe__FK_Te__286302EC">
             <End Role="Temperature" EntitySet="Temperature" />
             <End Role="RoomTemperatures" EntitySet="RoomTemperatures" />
           </AssociationSet>
@@ -141,7 +141,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ZBCRoomInfoDbModelStoreContainer" CdmEntityContainer="ZBCRoomInfoDbEntities">
+        <EntityContainerMapping StorageEntityContainer="ZBCRoomInfoDbModelStoreContainer" CdmEntityContainer="ZBCRoomInfoDbEntities1">
           <EntitySetMapping Name="Room">
             <EntityTypeMapping TypeName="ZBCRoomInfoDbModel.Room">
               <MappingFragment StoreEntitySet="Room">

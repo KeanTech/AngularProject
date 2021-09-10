@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="291400b4b951446e9565424bb59a2216" Name="Diagram1">
+      <Diagram DiagramId="eb2b556291b9495f9c0606dfe5b6bc88" Name="Diagram1">
         <EntityTypeShape EntityType="ZBCRoomInfoDbModel.Room" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ZBCRoomInfoDbModel.RoomTemperatures" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ZBCRoomInfoDbModel.Temperature" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <AssociationConnector Association="ZBCRoomInfoDbModel.FK__RoomTempe__FK_Ro__59C55456" ManuallyRouted="false" />
-        <AssociationConnector Association="ZBCRoomInfoDbModel.FK__RoomTempe__FK_Te__5AB9788F" ManuallyRouted="false" />
+        <AssociationConnector Association="ZBCRoomInfoDbModel.FK__RoomTempe__FK_Ro__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="ZBCRoomInfoDbModel.FK__RoomTempe__FK_Te__286302EC" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

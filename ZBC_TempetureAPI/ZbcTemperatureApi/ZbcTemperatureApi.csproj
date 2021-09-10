@@ -201,7 +201,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61950</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61950/api/values?id=0</IISUrl>
+          <IISUrl>http://localhost:61950</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
