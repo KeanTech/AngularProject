@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Web.Http;
 using ZbcTemperatureApi.DataAccess;
@@ -12,8 +15,9 @@ namespace ZbcTemperatureApi.Controllers
     {
         // GET api/values
         [HttpGet]
-        public string Sensor(string temperature, string location)
+        public HttpResponseMessage Sensor(string temperature, string location)
         {
+            HttpResponseMessage response;
             // Save temp to db here 
             if (!string.IsNullOrEmpty(temperature) && !string.IsNullOrEmpty(location))
             {
@@ -43,14 +47,17 @@ namespace ZbcTemperatureApi.Controllers
                         Temperature = temperatureModel
                     };
                     DbCommunicator.Add(roomTemperatures);
+                    response = Request.CreateResponse(HttpStatusCode.OK);
                     
-                    return "Ok";
+                    return response;
                 }
             }
-            return "Error";
+            response = Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            return response;
         }
 
-        public string Get(int ? id)
+        public HttpResponseMessage Get(int ? id)
         {
             var url = Request.RequestUri.AbsoluteUri.Split('?').Length;
             if (url > 2)
@@ -65,13 +72,17 @@ namespace ZbcTemperatureApi.Controllers
             {
                return GetTemps();
             }
-            
-            return JsonSerializer.Serialize<TemperatureModel>(DbCommunicator.GetTemperature(id ?? 1) ?? new TemperatureModel());
+
+            HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.OK);
+            message.Content = new StringContent(JsonSerializer.Serialize<TemperatureModel>(DbCommunicator.GetTemperature(id ?? 1) ?? new TemperatureModel()), Encoding.UTF8, "application/json");
+            return message;
         }
 
-        public string GetTemps()
+        public HttpResponseMessage GetTemps()
         {
-            return JsonSerializer.Serialize<List<TemperatureModel>>(DbCommunicator.GetTemperatures());
+            HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.OK);
+            message.Content = new StringContent(JsonSerializer.Serialize<List<TemperatureModel>>(DbCommunicator.GetTemperatures()), Encoding.UTF8, "application/json");
+            return message;
         }
 
     }

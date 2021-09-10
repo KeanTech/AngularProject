@@ -90,9 +90,9 @@ namespace ZbcTemperatureApi.DataAccess
 
         public static TemperatureModel GetTemperature(int id)
         {
-            var roomTemps = infoDb.RoomTemperatures.Where(x => x.Id == id).FirstOrDefault();
+            var roomTemps = infoDb.Temperature.Where(x => x.Id == id).FirstOrDefault();
 
-            return ConvertToTemperatureModel(roomTemps.Temperature, roomTemps.Room.Name);
+            return ConvertToTemperatureModel(roomTemps, "");
         }
 
         public static void Add(Temperature temperature)
