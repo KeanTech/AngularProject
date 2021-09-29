@@ -46,6 +46,7 @@ namespace ZbcTemperatureApi.Controllers
                         Room = room,
                         Temperature = temperatureModel
                     };
+
                     DbCommunicator.Add(roomTemperatures);
                     response = Request.CreateResponse(HttpStatusCode.OK);
                     
@@ -84,6 +85,5 @@ namespace ZbcTemperatureApi.Controllers
             message.Content = new StringContent(JsonSerializer.Serialize<List<TemperatureModel>>(DbCommunicator.GetTemperatures()), Encoding.UTF8, "application/json");
             return message;
         }
-
     }
 }
