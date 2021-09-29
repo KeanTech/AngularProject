@@ -16,7 +16,7 @@ namespace ZbcTemperatureApi.DataAccess
     {
         public int FK_Room_Id { get; set; }
         public int FK_Temperature_Id { get; set; }
-        public Nullable<int> Id { get; set; }
+        public int Id { get; set; }
     
         public virtual Room Room { get; set; }
         public virtual Temperature Temperature { get; set; }
