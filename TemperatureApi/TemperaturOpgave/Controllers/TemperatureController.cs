@@ -38,21 +38,5 @@ namespace TemperaturOpgave.Controllers
             }
         }
 
-        private List<UserModel> ConvertUserToModel(IEnumerable<User> users)
-        {
-            List<UserModel> userModels = new List<UserModel>();
-            foreach (var item in users)
-            {
-                UserModel userModel = new UserModel()
-                {
-                    Id = item.Id,
-                    UserName = item.UserName,
-                    Password = item.Password,
-                    Salt = item.Salt
-                };
-                userModels.Add(userModel);
-            }
-            return userModels;
-        }
     }
 }

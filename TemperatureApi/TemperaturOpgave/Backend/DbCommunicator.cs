@@ -7,5 +7,7 @@ namespace TemperaturOpgave.Backend
 {
     public class DbCommunicator
     {
+        // set this class up if there is mre time 
+
     }
 }
