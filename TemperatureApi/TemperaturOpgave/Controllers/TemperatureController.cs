@@ -14,35 +14,45 @@ namespace TemperaturOpgave.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Produces("application/json")]
     public class TemperatureController : Controller
     {
-        private readonly IConfiguration configuration;
-
-        public TemperatureController(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
         [HttpGet]
-        public HttpResponseMessage Get()
+        public IEnumerable<User> Get()
         {
             HttpResponseMessage message = new HttpResponseMessage();
             if (Request.Cookies["zbcRoomInfo"] != null)
             {
-                string jsonValue;
-                using (ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext(configuration))
+                IEnumerable<User> jsonValue;
+                using (ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext())
                 {
-                    jsonValue = JsonSerializer.Serialize<List<User>>(context.Users.ToList());
+                    var users = context.Users.ToArray();
+                    jsonValue = users;
                 }
-                message.StatusCode = HttpStatusCode.OK;
-                message.Content = new StringContent(jsonValue, Encoding.UTF8, "application/json");
-                return message;
+                return jsonValue;
             }
             else
             {
-                message.StatusCode = HttpStatusCode.BadRequest;
-                message.Content = new StringContent("");
-                return message;
+                IEnumerable<User> emptyList = new List<User>();
+                return emptyList;
             }
+        }
+
+        private List<UserModel> ConvertUserToModel(IEnumerable<User> users)
+        {
+            List<UserModel> userModels = new List<UserModel>();
+            foreach (var item in users)
+            {
+                UserModel userModel = new UserModel()
+                {
+                    Id = item.Id,
+                    UserName = item.UserName,
+                    Password = item.Password,
+                    Salt = item.Salt
+                };
+                userModels.Add(userModel);
+            }
+            return userModels;
         }
     }
 }
