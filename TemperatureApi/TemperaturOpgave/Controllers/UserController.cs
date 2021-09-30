@@ -12,6 +12,13 @@ namespace TemperaturOpgave.Controllers
     [Route("[controller]")]
     public class UserController : Controller
     {
+        private readonly ZBCRoomInfoDbContext context;
+
+        public UserController(ZBCRoomInfoDbContext context)
+        {
+            this.context = context;
+        }
+
         [HttpGet]
         public IEnumerable<string> Create(string userName, string password)
         {
@@ -20,15 +27,13 @@ namespace TemperaturOpgave.Controllers
                 UserName = userName,
                 Salt = Convert.ToBase64String(Hash.GenerateSalt())
             };
-            user.Password =  Convert.ToBase64String(Hash.HashPasswordWithSalt(Convert.FromBase64String(password), Convert.FromBase64String(user.Salt)));
-
-            using (ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext())
-            {
-                context.Add(user);
-                context.SaveChanges();
-            }
-
+            user.Password = Convert.ToBase64String(Hash.HashPasswordWithSalt(Convert.FromBase64String(password), Convert.FromBase64String(user.Salt)));
+            context.Add(user);
+            context.SaveChanges();
             return new List<string>() { new string("Success") };
         }
+
+
+
     }
 }

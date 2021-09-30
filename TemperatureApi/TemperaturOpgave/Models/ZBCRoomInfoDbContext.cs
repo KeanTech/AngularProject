@@ -43,10 +43,6 @@ namespace TemperaturOpgave.Models
 
                 entity.HasIndex(e => e.TemperatureId, "IX_RoomTemperatures_TemperatureId");
 
-                entity.Property(e => e.FkRoomId).HasColumnName("FK_Room_Id");
-
-                entity.Property(e => e.FkTemperatureId).HasColumnName("FK_Temperature_Id");
-
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.RoomTemperatures)
                     .HasForeignKey(d => d.RoomId);

@@ -34,6 +34,13 @@ namespace TemperaturOpgave.Backend
             }
         }
 
+        public static byte[] HashString(string toBeHashed)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                return sha256.ComputeHash(Convert.FromBase64String(toBeHashed));
+            }
+        }
         
 
     }

@@ -17,26 +17,53 @@ namespace TemperaturOpgave.Controllers
     [Produces("application/json")]
     public class TemperatureController : Controller
     {
-        [HttpGet]
-        public IEnumerable<User> Get()
+        private readonly ZBCRoomInfoDbContext context;
+
+        public TemperatureController(ZBCRoomInfoDbContext context)
         {
-            HttpResponseMessage message = new HttpResponseMessage();
-            if (Request.Cookies["zbcRoomInfo"] != null)
-            {
-                IEnumerable<User> jsonValue;
-                using (ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext())
-                {
-                    var users = context.Users.ToArray();
-                    jsonValue = users;
-                }
-                return jsonValue;
-            }
-            else
-            {
-                IEnumerable<User> emptyList = new List<User>();
-                return emptyList;
-            }
+            this.context = context;
         }
+
+        private Task<IEnumerable<TemperatureModel>> LoadData()
+        {
+            Task<IEnumerable<TemperatureModel>> task = Task<IEnumerable<TemperatureModel>>.Factory.StartNew(() =>
+            {
+                IEnumerable<TemperatureModel> temperatureModels = new List<TemperatureModel>();
+                var temps = context.Temperatures.ToList();
+                var roomTemps = context.RoomTemperatures.ToList();
+                var rooms = context.Rooms.ToList();
+
+                foreach (var roomtemp in roomTemps)
+                {
+                    foreach (var temp in temps)
+                    {
+                        TemperatureModel temperatureModel = new TemperatureModel();
+
+                        if (temp.TimeStamp != null && roomtemp.TemperatureId == temp.Id)
+                        {
+                            temperatureModel.RoomName = rooms.Where(x => x.Id == roomtemp.RoomId).FirstOrDefault().Name;
+                            temperatureModel.Id = temp.Id;
+                            temperatureModel.TimeStamp = temp.TimeStamp;
+                            temperatureModel.Celsius = temp.Celsius;
+                            ((List<TemperatureModel>)temperatureModels).Add(temperatureModel);
+                        }
+
+                    }
+                }
+                return temperatureModels;
+            });
+
+            return task;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<TemperatureModel>> Get()
+        {
+            IEnumerable<TemperatureModel> roomModels = await LoadData();
+            return roomModels;
+        }
+
+
 
     }
 }
