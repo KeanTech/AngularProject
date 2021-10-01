@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Net;
@@ -11,46 +12,55 @@ namespace TemperaturOpgave.Controllers
     [Route("[controller]")]
     public class SensorController : Controller
     {
+        private readonly IConfiguration configuration;
+        public SensorController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         [HttpGet]
-        public HttpResponseMessage SaveData(string temperature, string roomName)
+        public HttpResponseMessage SaveData(string temperature, string roomName, string apiKey)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            // Save temp to db here 
-            if (!string.IsNullOrEmpty(temperature) && !string.IsNullOrEmpty(roomName))
+           
+            if (configuration.GetValue<string>("ApiKey") == apiKey)
             {
-                ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext();
-                double temp;
-                double.TryParse(temperature, out temp);
-                if (temp != 0)
+                if (!string.IsNullOrEmpty(temperature) && !string.IsNullOrEmpty(roomName))
                 {
-                    Temperature temperatureModel = new Temperature()
+                    ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext();
+                    double temp;
+                    double.TryParse(temperature, out temp);
+                    if (temp != 0)
                     {
-                        TimeStamp = DateTime.Now,
-                        Celsius = double.Parse(temperature)
-                    };
+                        Temperature temperatureModel = new Temperature()
+                        {
+                            TimeStamp = DateTime.Now,
+                            Celsius = double.Parse(temperature)
+                        };
 
-                    context.Temperatures.Add(temperatureModel);
+                        context.Temperatures.Add(temperatureModel);
+                        context.SaveChanges();
+                        Room room = new Room()
+                        {
+                            Name = roomName
+                        };
+                        context.Rooms.Add(room);
+                        context.SaveChanges();
+                        RoomTemperature roomTemperatures = new RoomTemperature()
+                        {
+                            RoomId = context.Rooms.FirstOrDefault(x => x.Name == room.Name).Id,
+                            TemperatureId = context.Temperatures.FirstOrDefault(x => x.TimeStamp == temperatureModel.TimeStamp).Id
+                        };
 
-                    Room room = new Room()
-                    {
-                        Name = roomName
-                    };
-                    context.Rooms.Add(room);
+                        context.RoomTemperatures.Add(roomTemperatures);
+                        context.SaveChanges();
+                        response.StatusCode = HttpStatusCode.OK;
 
-                    RoomTemperature roomTemperatures = new RoomTemperature()
-                    {
-                        RoomId = context.Rooms.FirstOrDefault(x => x.Name == room.Name).Id,
-                        TemperatureId = context.Temperatures.FirstOrDefault(x => x.TimeStamp == temperatureModel.TimeStamp).Id
-                    };
-
-                    context.RoomTemperatures.Add(roomTemperatures);
-                    context.SaveChanges();
-                    response.StatusCode = HttpStatusCode.OK;
-
-                    return response;
+                        return response;
+                    }
                 }
             }
-
+            
             response.StatusCode = HttpStatusCode.BadRequest;
             return response;
         }

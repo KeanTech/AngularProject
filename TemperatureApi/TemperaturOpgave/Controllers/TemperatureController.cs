@@ -26,33 +26,37 @@ namespace TemperaturOpgave.Controllers
 
         private Task<IEnumerable<TemperatureModel>> LoadData()
         {
-            Task<IEnumerable<TemperatureModel>> task = Task<IEnumerable<TemperatureModel>>.Factory.StartNew(() =>
+            if(Request.Cookies["zbcRoomInfo"] != null)
             {
-                IEnumerable<TemperatureModel> temperatureModels = new List<TemperatureModel>();
-                var temps = context.Temperatures.ToList();
-                var roomTemps = context.RoomTemperatures.ToList();
-                var rooms = context.Rooms.ToList();
-
-                foreach (var roomtemp in roomTemps)
+                Task<IEnumerable<TemperatureModel>> task = Task<IEnumerable<TemperatureModel>>.Factory.StartNew(() =>
                 {
-                    foreach (var temp in temps)
-                    {
-                        TemperatureModel temperatureModel = new TemperatureModel();
+                    IEnumerable<TemperatureModel> temperatureModels = new List<TemperatureModel>();
+                    var temps = context.Temperatures.ToList();
+                    var roomTemps = context.RoomTemperatures.ToList();
+                    var rooms = context.Rooms.ToList();
 
-                        if (temp.TimeStamp != null && roomtemp.TemperatureId == temp.Id)
+                    foreach (var roomtemp in roomTemps)
+                    {
+                        foreach (var temp in temps)
                         {
-                            temperatureModel.RoomName = rooms.Where(x => x.Id == roomtemp.RoomId).FirstOrDefault().Name;
-                            temperatureModel.Id = temp.Id;
-                            temperatureModel.TimeStamp = temp.TimeStamp;
-                            temperatureModel.Celsius = temp.Celsius;
-                            ((List<TemperatureModel>)temperatureModels).Add(temperatureModel);
+                            TemperatureModel temperatureModel = new TemperatureModel();
+
+                            if (temp.TimeStamp != null && roomtemp.TemperatureId == temp.Id)
+                            {
+                                temperatureModel.RoomName = rooms.Where(x => x.Id == roomtemp.RoomId).FirstOrDefault().Name;
+                                temperatureModel.Id = temp.Id;
+                                temperatureModel.TimeStamp = temp.TimeStamp;
+                                temperatureModel.Celsius = temp.Celsius;
+                                ((List<TemperatureModel>)temperatureModels).Add(temperatureModel);
+                            }
                         }
                     }
-                }
-                return temperatureModels;
-            });
+                    return temperatureModels;
+                });
 
-            return task;
+                return task;
+            }
+            return null;
         }
 
         [HttpGet]
