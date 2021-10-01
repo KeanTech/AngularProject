@@ -47,7 +47,6 @@ namespace TemperaturOpgave.Controllers
                             temperatureModel.Celsius = temp.Celsius;
                             ((List<TemperatureModel>)temperatureModels).Add(temperatureModel);
                         }
-
                     }
                 }
                 return temperatureModels;
@@ -62,8 +61,5 @@ namespace TemperaturOpgave.Controllers
             IEnumerable<TemperatureModel> roomModels = await LoadData();
             return roomModels;
         }
-
-
-
     }
 }
