@@ -8,7 +8,7 @@ namespace ZbcTemperatureApi.DataAccess
 {
     public static class DbCommunicator
     {
-        private static ZBCRoomInfoDbEntities infoDb = new ZBCRoomInfoDbEntities();
+        private static ZBCRoomInfoDbEntities1 infoDb = new ZBCRoomInfoDbEntities1();
         //------------------------------------------------------------- Room Methods
 
         public static List<Room> GetRooms()
@@ -52,7 +52,7 @@ namespace ZbcTemperatureApi.DataAccess
             {
                 Id = temperature.Id,
                 Celsius = temperature.Celsius,
-                TimeStamp = temperature.TimeStamp ?? new DateTime(),
+                TimeStamp = temperature.TimeStamp,
                 Room = roomName
             };
             return temperatureModel;
@@ -90,9 +90,9 @@ namespace ZbcTemperatureApi.DataAccess
 
         public static TemperatureModel GetTemperature(int id)
         {
-            var roomTemps = infoDb.RoomTemperatures.Where(x => x.Id == id).FirstOrDefault();
+            var roomTemps = infoDb.Temperature.Where(x => x.Id == id).FirstOrDefault();
 
-            return ConvertToTemperatureModel(roomTemps.Temperature, roomTemps.Room.Name);
+            return ConvertToTemperatureModel(roomTemps, "");
         }
 
         public static void Add(Temperature temperature)
