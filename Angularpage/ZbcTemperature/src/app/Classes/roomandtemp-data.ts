@@ -1,5 +1,5 @@
 export class Dataclass{
-  id:number;
+  id:string;
   roomname:string;
   temperature:number;
   timestamp:string;

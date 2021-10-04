@@ -3,23 +3,37 @@
 
 </header>
 
-<body style="background-color: cornflowerblue;">
-  <!--
+<body class="bodyStyle">
 
-    <mat-card style="margin-left: 80vh; margin-right: 80vh;">
-      <table mat-table [dataSource]="displayData">
+  <mat-card class="cardStyle">
+    <table mat-table [dataSource]="displayData" class="tableStyle">
 
-        <ng-container matColumnDef="Id">
-          <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.Id}}</mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+      </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </table>
-    </mat-card>
-  -->
-  <button (click)="data.getData()">Fetch Data</button>
+      <ng-container matColumnDef="Roomname">
+        <mat-header-cell *matHeaderCellDef>Roomname</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.roomName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Temperature">
+        <mat-header-cell *matHeaderCellDef>Temperature</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.celsius}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Timestamp">
+        <mat-header-cell *matHeaderCellDef>Timestamp</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.timeStamp}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+  </mat-card>
+
+
 
 
 </body>

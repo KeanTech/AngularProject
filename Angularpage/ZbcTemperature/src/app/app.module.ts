@@ -14,10 +14,11 @@ import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 
 @NgModule({
-  declarations: [AppComponent, MainWebsiteComponent],
+  declarations: [AppComponent, MainWebsiteComponent, LoginPageComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

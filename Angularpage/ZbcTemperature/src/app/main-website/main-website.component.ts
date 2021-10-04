@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomsandtempsService } from '../roomsandtemps.service';
-import { Observable } from 'rxjs';
+import { Observable, ObservedValueOf } from 'rxjs';
 import { Data } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { Dataclass } from '../Classes/roomandtemp-data';
+import { NgModule } from '@angular/core';
+import { Variable } from '@angular/compiler/src/render3/r3_ast';
 
 
 
-export class Room {
-  Id: number;
-  Room: string;
-  Temperature: number;
-  Timestamp: string;
-}
+
 
 @Component({
   selector: 'app-main-website',
@@ -22,12 +19,22 @@ export class Room {
 
 export class MainWebsiteComponent implements OnInit {
 
-  displayedColumns = ['Id'];
 
+  displayData : any;
+  displayedColumns = ['Id','Roomname','Temperature','Timestamp'];
 
   constructor(public data:RoomsandtempsService){
   }
 
+  GetData(){
+    this.data.GetData().subscribe(e=>{
+      this.displayData = e;
+    });
+  }
+
   ngOnInit(): void {
+    this.data.GetData().subscribe(e=>{
+      this.displayData = e;
+    });
   }
 }
