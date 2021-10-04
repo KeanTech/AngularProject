@@ -26,7 +26,7 @@ namespace TemperaturOpgave.Controllers
 
         private Task<IEnumerable<TemperatureModel>> LoadData()
         {
-            if(Request.Cookies["zbcRoomInfo"] != null)
+            if (Request.Cookies["zbcRoomInfo"] != null)
             {
                 Task<IEnumerable<TemperatureModel>> task = Task<IEnumerable<TemperatureModel>>.Factory.StartNew(() =>
                 {
@@ -62,8 +62,15 @@ namespace TemperaturOpgave.Controllers
         [HttpGet]
         public async Task<IEnumerable<TemperatureModel>> Get()
         {
-            IEnumerable<TemperatureModel> roomModels = await LoadData();
-            return roomModels;
+            try
+            {
+                IEnumerable<TemperatureModel> roomModels = await LoadData();
+                return roomModels;
+            }
+            catch (Exception ex)
+            {
+                return new List<TemperatureModel>() { new TemperatureModel() { RoomName =  ex.Message} };
+            }
         }
     }
 }

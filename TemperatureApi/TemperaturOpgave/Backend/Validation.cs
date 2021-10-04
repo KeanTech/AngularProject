@@ -32,7 +32,6 @@ namespace TemperaturOpgave.Backend
                 }
             }
             return false;
-
         }
     }
 }

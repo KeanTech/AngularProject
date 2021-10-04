@@ -41,7 +41,5 @@ namespace TemperaturOpgave.Backend
                 return sha256.ComputeHash(Convert.FromBase64String(toBeHashed));
             }
         }
-        
-
     }
 }
