@@ -33,6 +33,10 @@ namespace TemperaturOpgave
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             }); 
             services.AddMvc();
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
             services.AddSession();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,11 +48,12 @@ namespace TemperaturOpgave
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TemperaturOpgave v1"));
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TemperaturOpgave v1"));
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             }
             app.UseResponseCaching();
             app.UseSession();
