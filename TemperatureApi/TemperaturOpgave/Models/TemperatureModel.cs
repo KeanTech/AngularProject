@@ -7,7 +7,6 @@ namespace TemperaturOpgave.Models
 {
     public class TemperatureModel
     {
-
         public int Id { get; set; }
         public double Celsius { get; set; }
         public DateTime? TimeStamp { get; set; }

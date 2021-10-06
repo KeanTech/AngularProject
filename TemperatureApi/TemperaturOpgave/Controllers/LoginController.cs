@@ -23,23 +23,36 @@ namespace TemperaturOpgave.Controllers
             value = configuration.GetValue<string>("Key");
         }
 
+        //[HttpGet]
+        //public IActionResult UserLogin(string username, string password)
+        //{
+        //    if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+        //    {
+        //        if (Validation.ValidateUser(username, password))
+        //        {
+        //            byte[] userBytes = Encoding.UTF8.GetBytes(username);
+        //            byte[] saltBytes = Encoding.UTF8.GetBytes(value);
+        //            byte[] hashedBytes = Hash.HashPasswordWithSalt(userBytes, saltBytes);
+        //            string hashedValue = Convert.ToBase64String(hashedBytes);
+
+        //            Response.Cookies.Append("zbcRoomInfo", hashedValue);
+        //            return Ok();
+        //        }
+        //    }
+        //    return BadRequest();
+        //}
+
         [HttpGet]
-        public IActionResult UserLogin(string username, string password)
+        public IEnumerable<User> UserLogin(string username, string password)
         {
+            IEnumerable<User> users = new List<User>();
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
             {
-                if (Validation.ValidateUser(username, password))
-                {
-                    byte[] userBytes = Encoding.UTF8.GetBytes(username);
-                    byte[] saltBytes = Encoding.UTF8.GetBytes(value);
-                    byte[] hashedBytes = Hash.HashPasswordWithSalt(userBytes, saltBytes);
-                    string hashedValue = Convert.ToBase64String(hashedBytes);
-
-                    Response.Cookies.Append("zbcRoomInfo", hashedValue);
-                    return Ok();
-                }
+                User user = Validation.ValidateUser(username, password);
+                ((List<User>)users).Add(user);
+                return users;
             }
-            return BadRequest();
+            return users;
         }
     }
 }

@@ -13,9 +13,12 @@ namespace TemperaturOpgave.Controllers
     public class SensorController : Controller
     {
         private readonly IConfiguration configuration;
-        public SensorController(IConfiguration configuration)
+        private readonly ZBCRoomInfoDbContext context;
+
+        public SensorController(IConfiguration configuration, ZBCRoomInfoDbContext context)
         {
             this.configuration = configuration;
+            this.context = context;
         }
 
         [HttpGet]
@@ -27,7 +30,6 @@ namespace TemperaturOpgave.Controllers
             {
                 if (!string.IsNullOrEmpty(temperature) && !string.IsNullOrEmpty(roomName))
                 {
-                    ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext();
                     double temp;
                     double.TryParse(temperature, out temp);
                     if (temp != 0)

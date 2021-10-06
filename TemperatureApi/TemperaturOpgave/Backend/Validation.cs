@@ -15,7 +15,7 @@ namespace TemperaturOpgave.Backend
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static bool ValidateUser(string userName, string password)
+        public static User ValidateUser(string userName, string password)
         {
             ZBCRoomInfoDbContext context = new ZBCRoomInfoDbContext();
 
@@ -27,11 +27,11 @@ namespace TemperaturOpgave.Backend
                 {
                     if (item.Password == Convert.ToBase64String(Hash.HashPasswordWithSalt(Convert.FromBase64String(password), Convert.FromBase64String(item.Salt))))
                     {
-                        return true;
+                        return item;
                     }
                 }
             }
-            return false;
+            return null;
         }
     }
 }
