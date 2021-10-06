@@ -1,4 +1,7 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { RoomsandtempsService } from '../roomsandtemps.service';
 
 @Component({
   selector: 'app-login-page',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public data:RoomsandtempsService) { }
 
   ngOnInit(): void {
+    console.log(this.data.GetCookie())
+
   }
 
-}
+  }
+

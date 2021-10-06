@@ -8,9 +8,6 @@ import { NgModule } from '@angular/core';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 
 
-
-
-
 @Component({
   selector: 'app-main-website',
   templateUrl: './main-website.component.html',
@@ -22,6 +19,7 @@ export class MainWebsiteComponent implements OnInit {
 
   displayData : any;
   displayedColumns = ['Id','Roomname','Temperature','Timestamp'];
+  Api:any;
 
   constructor(public data:RoomsandtempsService){
   }

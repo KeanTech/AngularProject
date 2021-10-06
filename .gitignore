@@ -348,5 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-TemperatureApi/TemperaturOpgave/appsettings.json
 TemperatureApi/TemperaturOpgave/Models/ZBCRoomInfoDbContext.cs
+TemperatureApi/TemperaturOpgave/appsettings.json
