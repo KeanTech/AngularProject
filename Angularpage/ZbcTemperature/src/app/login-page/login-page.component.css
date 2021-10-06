@@ -13,3 +13,6 @@
   width: 100%;
   justify-content: center;
 }
+input:invalid {
+  outline-color: red;
+}

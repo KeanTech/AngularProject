@@ -1,5 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { RoomsandtempsService } from '../roomsandtemps.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data.GetCookie())
+
   }
 
   }
