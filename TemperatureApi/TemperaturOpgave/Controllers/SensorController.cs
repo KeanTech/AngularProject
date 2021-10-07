@@ -26,7 +26,7 @@ namespace TemperaturOpgave.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
            
-            if (configuration.GetValue<string>("ApiKey") == apiKey)
+            if (configuration["ApiKey"] == apiKey)
             {
                 if (!string.IsNullOrEmpty(temperature) && !string.IsNullOrEmpty(roomName))
                 {
