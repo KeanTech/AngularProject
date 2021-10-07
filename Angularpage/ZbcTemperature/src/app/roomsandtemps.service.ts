@@ -11,24 +11,18 @@ import { Observable } from 'rxjs';
 export class RoomsandtempsService {
   data: any;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient) {}
 
   GetData() {
     const url = 'https://localhost:44361/Temperature';
     return this.http.get<Dataclass>(url);
   }
 
-  //hvis der kan blive sendt afsted fra api'et navn og value som streng/json istedet for hele cookie,
-  //kan cookien oprettes i angular istedet.
 
-  GetCookie() {
-    const url = 'https://localhost:44361/Login?username=alex&password=alex';
+  GetValuesForCookie(username:String,password:String) {
+    const url = 'https://localhost:44361/Login?username='+username+'&password='+password;
     console.log('Request is sent!');
-    this.http.get(url).subscribe(
-      (response:HttpResponseBase) => {
-        return response.headers.getAll('Cookie Value')
-      }
-    );
+    return this.http.get(url);
   }
 
 
