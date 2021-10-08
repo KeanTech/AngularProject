@@ -6,6 +6,7 @@ import { MainWebsiteComponent } from './main-website/main-website.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxJsonViewModule } from 'ng-json-view';
 import { CookieService } from 'ngx-cookie-service';
+import { FormsModule } from '@angular/forms'
 
 /*----------------------------------------/*
 /*Material imports */
@@ -38,6 +39,7 @@ const routes: Routes = [
     HttpClientModule,
     NgxJsonViewModule,
     BrowserAnimationsModule,
+    FormsModule,
     /* Material import and exports */
     MatCardModule,
     MatToolbarModule,
