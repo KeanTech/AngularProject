@@ -1,21 +1,20 @@
 <html>
 <header>
 </header>
-<body class="bodyStyle" >
-  <div *ngIf="GetCookie()">
-  </div>
-  <div class="login-form-flex" >
+
+<body class="bodyStyle">
+  <div class="login-form-flex">
     <mat-card class="mat-card-loginbox">
       <mat-card-title>
         Login
       </mat-card-title>
-      <mat-card-content >
+      <mat-card-content>
         <mat-form-field>
-          <input  matInput placeholder="Brugernavn" name="username" [(ngModel)]="username" required>
+          <input matInput placeholder="Brugernavn" name="username" [(ngModel)]="username" required>
         </mat-form-field>
-        <br/>
+        <br />
         <mat-form-field>
-          <input matInput type="password" placeholder="Kodeord" name="password" [(ngModel)]="password" required>
+          <input matInput type="password" placeholder="Kodeord" name="password" [(ngModel)]="password" required >
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
@@ -26,4 +25,5 @@
     </mat-card>
   </div>
 </body>
+
 </html>

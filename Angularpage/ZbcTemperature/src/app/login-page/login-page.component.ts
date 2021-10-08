@@ -41,6 +41,15 @@ export class LoginPageComponent implements OnInit {
       return false;
     }
   }
+  CheckPassLength(){
+    if(this.password.length > 8){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }
   ngOnInit(): void {
     this.GetCookie();
   }
