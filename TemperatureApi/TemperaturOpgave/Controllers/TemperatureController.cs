@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
+using TemperaturOpgave.Backend;
 using TemperaturOpgave.Models;
+using TemperaturOpgave.Models.Authentication;
+using TemperaturOpgave.Services;
 
 namespace TemperaturOpgave.Controllers
 {
@@ -17,49 +18,38 @@ namespace TemperaturOpgave.Controllers
     [Produces("application/json")]
     public class TemperatureController : Controller
     {
-        private readonly ZBCRoomInfoDbContext context;
-
-        public TemperatureController(ZBCRoomInfoDbContext context)
+        private DbCommunicator dbCommunicator;
+        
+        public TemperatureController()
         {
-            this.context = context;
+            dbCommunicator = new DbCommunicator();
         }
-
+        
+        /// <summary>
+        /// Makes a call to db through the DbCommunicator
+        /// returns a null if user dont have access
+        /// </summary>
+        /// <returns></returns>
         private Task<IEnumerable<TemperatureModel>> LoadData()
         {
-            if (Request.Cookies["zbcRoomInfo"] != null)
+            if (LoadDataValidation())
             {
                 Task<IEnumerable<TemperatureModel>> task = Task<IEnumerable<TemperatureModel>>.Factory.StartNew(() =>
                 {
-                    IEnumerable<TemperatureModel> temperatureModels = new List<TemperatureModel>();
-                    var temps = context.Temperatures.ToList();
-                    var roomTemps = context.RoomTemperatures.ToList();
-                    var rooms = context.Rooms.ToList();
-
-                    foreach (var roomtemp in roomTemps)
-                    {
-                        foreach (var temp in temps)
-                        {
-                            TemperatureModel temperatureModel = new TemperatureModel();
-
-                            if (temp.TimeStamp != null && roomtemp.TemperatureId == temp.Id)
-                            {
-                                temperatureModel.RoomName = rooms.Where(x => x.Id == roomtemp.RoomId).FirstOrDefault().Name;
-                                temperatureModel.Id = temp.Id;
-                                temperatureModel.TimeStamp = temp.TimeStamp;
-                                temperatureModel.Celsius = temp.Celsius;
-                                ((List<TemperatureModel>)temperatureModels).Add(temperatureModel);
-                            }
-                        }
-                    }
-                    return temperatureModels;
+                    return dbCommunicator.GetRoomTemperatures();
                 });
-
                 return task;
             }
             return null;
         }
 
+
+        /// <summary>
+        /// Gets the Room Temperatures from db
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [CostumAuthorize]
         public async Task<IEnumerable<TemperatureModel>> Get()
         {
             try
@@ -71,6 +61,22 @@ namespace TemperaturOpgave.Controllers
             {
                 return new List<TemperatureModel>() { new TemperatureModel() { RoomName =  ex.Message} };
             }
+        }
+
+        /// <summary>
+        /// Validates the clients cookie 
+        /// Returns false if user token is invalid or user dont exist
+        /// Else true
+        /// </summary>
+        /// <returns></returns>
+        private bool LoadDataValidation()
+        {
+            User user = dbCommunicator.GetUsers().ToList().FirstOrDefault(x => Convert.ToBase64String(Hash.HashString(x.UserName)) == Request.Cookies["zbcRoomInfo"].Split(".")[0]);
+            if (Request.Cookies["Token"] == user.Token)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

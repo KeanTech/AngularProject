@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TemperaturOpgave.Models
 {
-    public partial class User : IEquatable<User>
+    public partial class User
     {
         public User()
         {
@@ -16,16 +16,8 @@ namespace TemperaturOpgave.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
+        public string Token { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
-
-        public bool Equals(User other)
-        {
-            if (other.Salt != Salt && other.Password != Password && other.UserName != UserName)
-            {
-                return false;
-            }
-            else return true;
-        }
     }
 }
