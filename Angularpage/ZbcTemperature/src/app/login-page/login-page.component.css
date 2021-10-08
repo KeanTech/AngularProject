@@ -7,11 +7,17 @@
   align-items: center;
   height: 100%;
 }
-
+.mat-card-loginbox{
+  box-shadow: 5px 5px 8px grey;
+}
 .button-flex-container {
   display: flex;
   width: 100%;
   justify-content: center;
+}
+.mat-success {
+  background-color: lightgreen;
+  color: black;
 }
 input:invalid {
   outline-color: red;
