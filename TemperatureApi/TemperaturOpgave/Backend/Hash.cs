@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
-
+using System.Text;
 namespace TemperaturOpgave.Backend
 {
     public class Hash
@@ -38,7 +38,7 @@ namespace TemperaturOpgave.Backend
         {
             using (var sha256 = SHA256.Create())
             {
-                return sha256.ComputeHash(Convert.FromBase64String(toBeHashed));
+                return sha256.ComputeHash(Encoding.ASCII.GetBytes(toBeHashed));
             }
         }
     }
