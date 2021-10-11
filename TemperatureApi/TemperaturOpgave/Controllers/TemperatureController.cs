@@ -43,7 +43,6 @@ namespace TemperaturOpgave.Controllers
             return null;
         }
 
-
         /// <summary>
         /// Gets the Room Temperatures from db
         /// </summary>

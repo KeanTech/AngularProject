@@ -18,26 +18,5 @@ namespace TemperaturOpgave.Controllers
         {
             this.context = context;
         }
-
-        // Creates a user for login
-        [HttpGet]
-        public IEnumerable<string> Create(string userName, string password)
-        {
-            if(this.HttpContext.Request.Cookies["zbcRoomInfo"] != null)
-            {
-                User user = new User()
-                {
-                    UserName = userName,
-                    Salt = Convert.ToBase64String(Hash.GenerateSalt())
-                };
-
-                user.Password = Convert.ToBase64String(Hash.HashPasswordWithSalt(Convert.FromBase64String(password), Convert.FromBase64String(user.Salt)));
-                context.Add(user);
-                context.SaveChanges();
-                return new List<string>() { new string("Success") };
-            }
-
-            return new List<string>() { new string("Error") };
-        }
     }
 }

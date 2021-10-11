@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace TemperaturOpgave.Models
 {
-    public partial class User
+    public partial class User : IEquatable<User>
     {
         public User()
         {
@@ -19,5 +20,17 @@ namespace TemperaturOpgave.Models
         public string Token { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
+
+        public bool Equals(User other)
+        {
+            if(other.Id == Id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

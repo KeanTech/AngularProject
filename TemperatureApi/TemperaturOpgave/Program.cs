@@ -21,6 +21,9 @@ namespace TemperaturOpgave
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureWebHost(config => 
+                {
+                    config.UseUrls("https://localhost:43361", "https://192.168.1.29:43361");
                 });
     }
 }

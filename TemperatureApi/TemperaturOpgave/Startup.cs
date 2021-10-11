@@ -30,11 +30,14 @@ namespace TemperaturOpgave
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
+
             services.AddSession();
             services.AddControllers();
             services.Configure<Appsettings>(Configuration.GetSection("AppSettings"));
@@ -56,10 +59,7 @@ namespace TemperaturOpgave
                 };
                 
                 c.AddSecurityDefinition("Bearer", apiSecurityScheme);
-                //c.AddSecurityRequirement(new OpenApiSecurityRequirement 
-                //{
-                //    new 
-                //});
+                
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                         {

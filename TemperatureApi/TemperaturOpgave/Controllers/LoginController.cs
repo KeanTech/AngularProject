@@ -30,7 +30,6 @@ namespace TemperaturOpgave.Controllers
         public AuthenticateResponse UserLogin(AuthenticateRequest model)
         {
             var response = service.Authenticate(model);
-            
             User user = Validation.ValidateUser(model.Username, model.Password);
             if (response != null && user != null)
             {

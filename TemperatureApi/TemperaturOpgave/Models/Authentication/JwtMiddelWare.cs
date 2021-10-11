@@ -54,11 +54,11 @@ namespace TemperaturOpgave.Models.Authentication
 
                 context.Items["User"] = service.GetById(userId);
             }
+
             catch (Exception)
             {
                 // Make a exception handler for this
             }
         }
-
     }
 }
