@@ -17,7 +17,7 @@
 }
 .mat-success {
   background-color: lightgreen;
-  color: black;
+  color: white;
 }
 input:invalid {
   outline-color: red;

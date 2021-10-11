@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Dataclass } from './Classes/roomandtemp-data';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
 
 
 @Injectable({
