@@ -1,6 +1,4 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
 import { RoomsandtempsService } from '../roomsandtemps.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -15,8 +13,10 @@ export class LoginPageComponent implements OnInit {
   constructor(public data:RoomsandtempsService, private cookieService: CookieService,
     private router: Router) { }
 
-  username:string
-  password:string
+  username = "";
+  password = "";
+
+  jwtToken = "";
 
   //Sets the cookie if the login is succesful.
   SetCookie(){
@@ -26,7 +26,7 @@ export class LoginPageComponent implements OnInit {
         console.log(temp)
         */
         this.cookieService.set("zbcRoomInfo",e[0]['password']);
-        console.log(e)
+        console.log(e);
     });
   }
   //Checks if the cookie already is created, and if it does you dont need to login. Redirect to main site.
@@ -37,12 +37,12 @@ export class LoginPageComponent implements OnInit {
       return true;
     }
     else{
-      console.log("false")
+      console.log("false");
       return false;
     }
   }
-  CheckPassLength(){
-    if(this.password.length > 8){
+  CheckPasswordAndUsernameLength(){
+    if(this.password.length < 4  || this.username.length < 4){
       return true;
     }
     else{

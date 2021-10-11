@@ -51,7 +51,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
   ],
-  exports: [MatCardModule,
+  exports: [
+    MatCardModule,
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
