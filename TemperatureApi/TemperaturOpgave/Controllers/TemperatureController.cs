@@ -75,6 +75,7 @@ namespace TemperaturOpgave.Controllers
             {
                 return true;
             }
+
             return false;
         }
     }
