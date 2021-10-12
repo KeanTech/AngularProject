@@ -21,9 +21,9 @@ namespace TemperaturOpgave.Controllers
             this.context = context;
         }
 
-        [HttpPost]
+        [HttpGet]
         public HttpResponseMessage SaveData(string temperature, string roomName, string apiKey)
-        {
+       {
             HttpResponseMessage response = new HttpResponseMessage();
            
             if (configuration["ApiKey"] == apiKey)

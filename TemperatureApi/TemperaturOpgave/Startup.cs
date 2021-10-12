@@ -98,7 +98,7 @@ namespace TemperaturOpgave
 
             app.UseResponseCaching();
             app.UseSession();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseRouting();
             
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

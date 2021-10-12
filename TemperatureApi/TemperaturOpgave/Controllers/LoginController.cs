@@ -33,11 +33,8 @@ namespace TemperaturOpgave.Controllers
             User user = Validation.ValidateUser(model.Username, model.Password);
             if (response != null && user != null)
             {
-                Response.Cookies.Append("zbcRoomInfo", Convert.ToBase64String(Hash.HashString(user.UserName)) + "." + user.Password);
-                Response.Cookies.Append("token", response.Token);
                 return response;
             }
-
             return response;
         }
     }
