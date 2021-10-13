@@ -14,7 +14,7 @@ namespace TemperaturOpgave.Models.Authentication
     {
         private readonly RequestDelegate next;
         private readonly Appsettings appSettings;
-
+        
         public JwtMiddelWare(RequestDelegate next, IOptions<Appsettings> appSettings)
         {
             this.next = next;
@@ -24,7 +24,6 @@ namespace TemperaturOpgave.Models.Authentication
         public async Task Invoke(HttpContext context, IUserService service)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
             if(token != null)
             {
                 AttachUserToContext(context, service, token);
@@ -54,7 +53,6 @@ namespace TemperaturOpgave.Models.Authentication
 
                 context.Items["User"] = service.GetById(userId);
             }
-
             catch (Exception)
             {
                 // Make a exception handler for this

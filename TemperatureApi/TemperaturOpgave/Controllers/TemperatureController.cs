@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,14 @@ namespace TemperaturOpgave.Controllers
     public class TemperatureController : Controller
     {
         private DbCommunicator dbCommunicator;
-        
-        public TemperatureController()
+        private readonly IConfiguration configuration;
+
+        public TemperatureController(IConfiguration configuration)
         {
             dbCommunicator = new DbCommunicator();
+            this.configuration = configuration;
         }
-        
+
         /// <summary>
         /// Makes a call to db through the DbCommunicator
         /// returns a null if user dont have access
@@ -32,15 +35,11 @@ namespace TemperaturOpgave.Controllers
         /// <returns></returns>
         private Task<IEnumerable<TemperatureModel>> LoadData()
         {
-            if (LoadDataValidation())
+            Task<IEnumerable<TemperatureModel>> task = Task<IEnumerable<TemperatureModel>>.Factory.StartNew(() =>
             {
-                Task<IEnumerable<TemperatureModel>> task = Task<IEnumerable<TemperatureModel>>.Factory.StartNew(() =>
-                {
-                    return dbCommunicator.GetRoomTemperatures();
-                });
-                return task;
-            }
-            return null;
+                return dbCommunicator.GetRoomTemperatures();
+            });
+            return task;
         }
 
         /// <summary>
@@ -48,35 +47,23 @@ namespace TemperaturOpgave.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [CostumAuthorize]
-        public async Task<IEnumerable<TemperatureModel>> Get()
+        public async Task<IEnumerable<TemperatureModel>> Get(string apiKey)
         {
-            try
+            if (apiKey != null && apiKey == configuration["ApiKey"])
             {
-                IEnumerable<TemperatureModel> roomModels = await LoadData();
-                return roomModels;
+                try
+                {
+                    IEnumerable<TemperatureModel> roomModels = await LoadData();
+                    return roomModels;
+                }
+                catch (Exception ex)
+                {
+                    return new List<TemperatureModel>() { new TemperatureModel() { RoomName = ex.Message } };
+                }
             }
-            catch (Exception ex)
-            {
-                return new List<TemperatureModel>() { new TemperatureModel() { RoomName =  ex.Message} };
-            }
+            return null;
         }
 
-        /// <summary>
-        /// Validates the clients cookie 
-        /// Returns false if user token is invalid or user dont exist
-        /// Else true
-        /// </summary>
-        /// <returns></returns>
-        private bool LoadDataValidation()
-        {
-            User user = dbCommunicator.GetUsers().ToList().FirstOrDefault(x => Convert.ToBase64String(Hash.HashString(x.UserName)) == Request.Cookies["zbcRoomInfo"].Split(".")[0]);
-            if (Request.Cookies["Token"] == user.Token)
-            {
-                return true;
-            }
 
-            return false;
-        }
     }
 }

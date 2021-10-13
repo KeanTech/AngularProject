@@ -17,15 +17,15 @@ namespace TemperaturOpgave.Models.Authentication
         {
             DbCommunicator db = new DbCommunicator();
 
-            var username = context.HttpContext.Request.Cookies["zbcRoomInfo"].Split(".")[0];
-            var password = context.HttpContext.Request.Cookies["zbcRoomInfo"].Split(".")[1];
+            //var username = context.HttpContext.Request.Cookies["zbcRoomInfo"].Split(".")[0];
+            //var password = context.HttpContext.Request.Cookies["zbcRoomInfo"].Split(".")[1];
 
-            User user = db.GetUsers().FirstOrDefault(x => Convert.ToBase64String(Hash.HashString(x.UserName)) == username);
+            //User user = db.GetUsers().FirstOrDefault(x => Convert.ToBase64String(Hash.HashString(x.UserName)) == username);
 
-            if (user == null || password != user.Password)
-            {
-                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
-            }
+            //if (user == null || password != user.Password)
+            //{
+               //context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+            //}
         }
     }
 }
